@@ -8,7 +8,7 @@ import math
 hub = MSHub()
 # distance_sensor = DistanceSensor('C')
 motor_pair = MotorPair('A', 'B')
-motor_pair.set_default_speed(30)
+motor_pair.set_default_speed(50)
 colour = ColorSensor('C')
 
 

@@ -19,10 +19,10 @@ steer_factor = 1.25
 steer_correct = 0
 steer_amount = 0
 sum_of_error = 0
-integral_factor = 0.7
+integral_factor = 0.675
 last_error = 0
 derivative = 0
-derivative_factor = 2
+derivative_factor = 0.8
 
 hub.speaker.beep()
 while True:

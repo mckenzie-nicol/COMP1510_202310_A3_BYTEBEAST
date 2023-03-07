@@ -10,47 +10,29 @@ motor_pair = MotorPair('A', 'B')
 color_sensor = ColorSensor('C')
 distance_sensor = DistanceSensor('E')
 claw_motor = Motor('D')
+hammer_motor = Motor('F')
 
 
-# Write your program here.
-def scanning45():
-    while True:
-        motor_pair.move_tank(0.25, 'rotations', -25, 25)
-        for _ in range(2):
-            if distance_sensor.get_distance_cm() in range(35):
-                bullrush()
-                break
-            motor_pair.move_tank(0.25, 'rotations', 25, -25)
-        break
+# # Write your program here.
+# def main():
+#     """
+#     Execute the program.
+#     """
+# def scanning45():
+#     """
+#     Scan the area in front of the robot every 45 degrees.If detected an object, the robot will execute bullrush().
+#     """
+#     while True:
+#         motor_pair.move_tank(0.25, 'rotations', -25, 25)
+#         for _ in range(2):
+#             if distance_sensor.get_distance_cm() in range(35):
+#                 bullrush()
+#                 break
+#             motor_pair.move_tank(0.25, 'rotations', 25, -25)
+#         break
 
 
-def straight_until_reach_boundary():
-    while distance_sensor.get_distance_cm() not in range(35):
-        while color_sensor.get_reflected_light() > 80:
-            motor_pair.start_tank(45, 45)
-            if distance_sensor.get_distance_cm() in range(35):
-                bullrush()
-                break
-        break
-
-
-def bullrush():
-    claw_motor.run_to_position(130, 'shortest path', 30)
-    motor_pair.move_tank(3, 'rotations', 100, 100)
-    while True:
-        motor_pair.move_tank(30, 30)
-        if color_sensor.get_reflected_light() < 80:
-            claw_motor.run_to_position(355, 'shortest path', 30)
-            break
-
-
-hub.speaker.beep()
-claw_motor.run_to_position(355, 'shortest path', 30)
-claw_motor.run_to_position(130, 'shortest path', 30)
-claw_motor.run_to_position(355, 'shortest path', 30)
-motor_pair.move_tank(0.2, 'rotations', 50, 50)
-
-while True:
-    scanning45()
-    straight_until_reach_boundary()
-    motor_pair.move_tank(0.775, 'rotations', -25, 25)
+# def straight_until_reach_boundary():
+#     while distance_sensor.get_distance_cm() not in range(35):
+#         while color_sensor.get_reflected_light() > 80:
+#             motor_pair.start_tank(45

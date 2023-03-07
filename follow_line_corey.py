@@ -51,6 +51,7 @@ while True:
     if colour_sensor.get_color() == 'green':
         movement_motors.stop()
         break
+  
         # hub.light_matrix.write('timer =')
         # hub.light_matrix.write(timer.now())
     #     if timer.now() >= 2:

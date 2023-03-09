@@ -1,7 +1,6 @@
 from mindstorms import MSHub, Motor, MotorPair, ColorSensor, DistanceSensor, App
 from mindstorms.control import wait_for_seconds, wait_until, Timer
-from mindstorms.operator import greater_than, greater_than_or_equal_to, less_than, less_than_or_equal_to, equal_to, \
-    not_equal_to
+# from mindstorms.operator import greater_than, greater_than_or_equal_to, less_than, less_than_or_equal_to, equal_to, not_equal_to
 import math
 
 # Create your objects here.
@@ -11,58 +10,37 @@ color_sensor = ColorSensor('C')
 distance_sensor = DistanceSensor('E')
 claw_motor = Motor('D')
 hammer_motor = Motor('F')
+timer = Timer()
 
 
-# # Write your program here.
-# def main():
-#    """
-#    Execute the program.
-#    """
-# def scanning45():
-#    """
-#    Scan the area in front of the robot every 45 degrees.If detected an object, the robot will execute bullrush().
-#    """
-#    while True:
-#        motor_pair.move_tank(0.25, 'rotations', -25, 25)
-#        for _ in range(2):
-#            if distance_sensor.get_distance_cm() in range(35):
-#                bullrush()
-#                break
-#            motor_pair.move_tank(0.25, 'rotations', 25, -25)
-#        break
-
-
-# def straight_until_reach_boundary():
-#    while distance_sensor.get_distance_cm() not in range(35):
-#        while color_sensor.get_reflected_light() > 80:
-#            motor_pair.start_tank(45, 45)
-#            if distance_sensor.get_distance_cm() in range(35):
-#                bullrush()
-#                break
-#        break
-
-
-# def bullrush():
-#    claw_motor.run_to_position(130, 'shortest path', 30)
-#    motor_pair.move_tank(3, 'rotations', 100, 100)
-#    while True:
-#        motor_pair.move_tank(30, 30)
-#        if color_sensor.get_reflected_light() < 80:
-#            claw_motor.run_to_position(355, 'shortest path', 30)
-#            break
-
-def hammer():
-    motor_pair.start(100)
+def start_hammer():
+    distance_sensor.light_up_all(100)
+    hammer_motor.start(-100)
+    hub.speaker.play_sound('Target Acquired')
 
 def move_to_mid():
-    hammer_motor.start(-100)
     motor_pair.move_tank(25, 'cm', 100, 100)
+    motor_pair.start_tank(-100, 100)
+    hub.speaker.play_sound('Seek and Destroy')
 
-    #hammer_motor.run_to_position(304, 'shortest path',100)
+def circle_of_fury():
+    motor_pair.start_tank(-100, 100)
 
-
+def move_around_the_arena():
+    while True:
+        wait_for_seconds(4)
+        motor_pair.stop()
+        timer.reset()
+        while color_sensor.get_reflected_light() > 70:
+            if timer.now() > 1:
+                break
+            motor_pair.start_tank(50, 50)
+        motor_pair.stop()
+        hub.speaker.play_sound('Seek and Destroy')
+        circle_of_fury()
 
 
 hub.speaker.beep()
+start_hammer()
 move_to_mid()
-hammer()
+move_around_the_arena()

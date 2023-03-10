@@ -13,18 +13,33 @@ hammer_motor = Motor('F')
 timer = Timer()
 
 
-def start_hammer():
+def start_cyclone_of_death():
+    """
+    Energize front weaponry.
+    """
     distance_sensor.light_up_all(100)
     hammer_motor.start(-100)
 
+
 def move_to_mid():
+    """
+    Charge to the middle of the arena.
+    """
     motor_pair.move_tank(25, 'cm', 100, 100)
     motor_pair.start_tank(-100, 100)
 
+
 def circle_of_fury():
+    """
+    Pivot the robot at full speed in a circle.
+    """
     motor_pair.start_tank(-100, 100)
 
+
 def move_around_the_arena():
+    """
+    Move around the circle in designated time intervals.
+    """
     while True:
         wait_for_seconds(4)
         motor_pair.stop()
@@ -37,8 +52,15 @@ def move_around_the_arena():
         circle_of_fury()
 
 
-hub.speaker.beep()
-start_hammer()
-move_to_mid()
-move_around_the_arena()
+def main():
+    """
+    Execute the program.
+    """
+    hub.speaker.beep()
+    start_cyclone_of_death()
+    move_to_mid()
+    move_around_the_arena()
+
+
+main()
 

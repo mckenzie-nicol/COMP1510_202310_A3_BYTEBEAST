@@ -21,12 +21,12 @@ def ball_pickup():
     hammer_motor.run_to_position(50, 'shortest path', 30)
     claw_motor.run_to_position(130, 'shortest path', 30)
     while color_sensor.get_reflected_light() > 80:
-         motor_pair.start_tank(20, 20)
+        motor_pair.start_tank(20, 20)
 
 
 def ball_pickup_first_attempt():
     """
-    Capture ball within the claws if ball is seen on the first attempt
+    Capture ball within the claws if ball is seen on the first attempt.
     """
     motor_pair.move_tank(0.25, 'rotations', 10, 10)
     hammer_motor.run_to_position(50, 'shortest path', 30)
@@ -35,10 +35,9 @@ def ball_pickup_first_attempt():
 
 def get_radius():
     """
-    Obtain the radius of the circle that the robot is in
+    Obtain the radius of the circle that the robot is in.
     """
     rotation_count = 0.2
-    # hammer_motor.run_to_position(270, 'shortest path', 20)
     while color_sensor.get_reflected_light() > 70 and claw_motor.get_position() > 200:
         motor_pair.move_tank(0.20, 'rotations', 20, 20)
         rotation_count += 0.20
@@ -49,14 +48,14 @@ def get_radius():
 
 def reverse_to_center(rotation_count):
     """
-    Reverse back to the center of the circle
+    Reverse back to the center of the circle.
     """
     motor_pair.move_tank(-(rotation_count), 'rotations', 35, 35)
 
 
 def initialize():
     """
-    Calibrate the claw positions
+    Calibrate the claw positions.
     """
     hub.speaker.beep()
     claw_motor.run_to_position(355, 'shortest path', 30)
@@ -70,7 +69,7 @@ def initialize():
 
 def search_for_ball(distance_back):
     """
-    Search for the ball in the area and reverse to the 
+    Search for the ball in the area and reverse back to the center of the circle. 
     """
     while claw_motor.get_position() > 200:
         while color_sensor.get_reflected_light() > 70 and claw_motor.get_position() > 200:
@@ -80,12 +79,11 @@ def search_for_ball(distance_back):
         reverse_to_center(distance_back)
         motor_pair.move_tank(0.0625, 'rotations', 25, 0)
         motor_pair.move_tank(0.0625, 'rotations', 0, -25)
-        # hammer_motor.run_to_position(340, 'shortest path', 30)
 
 
 def main():
     """
-    Execute the Program
+    Execute the program.
     """
     initialize()
     radius = get_radius()

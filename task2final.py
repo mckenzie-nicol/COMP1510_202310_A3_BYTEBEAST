@@ -36,6 +36,9 @@ def ball_pickup_first_attempt():
 def get_radius():
     """
     Obtain the radius of the circle that the robot is in.
+
+    :postcondition: returns the radius of the circle as a real floating point number
+    :return: radius as a real floating point number
     """
     rotation_count = 0.2
     while color_sensor.get_reflected_light() > 70 and claw_motor.get_position() > 200:
@@ -49,6 +52,10 @@ def get_radius():
 def reverse_to_center(rotation_count):
     """
     Reverse back to the center of the circle.
+
+    :param rotation_count: a real floating point number
+    :precondition: param rotation_count must be a real floating point number
+    :postcondition: moves the robot to the center of the circle 
     """
     motor_pair.move_tank(-(rotation_count), 'rotations', 35, 35)
 
@@ -69,7 +76,11 @@ def initialize():
 
 def search_for_ball(distance_back):
     """
-    Search for the ball in the area and reverse back to the center of the circle. 
+    Search for the ball in the area and reverse back to the center of the circle.
+
+    :param distance_back: a real floating point number
+    :precondition: param distance_back must be a real floating point number
+    :postcondition: searches for the ball and moves robot back to center of the circle
     """
     while claw_motor.get_position() > 200:
         while color_sensor.get_reflected_light() > 70 and claw_motor.get_position() > 200:
